@@ -1,0 +1,19 @@
+import 'package:dio/dio.dart';
+import 'package:weather_app/models/weather_model.dart';
+
+class WeatherServer {
+  final Dio dio;
+  final String baseurl = 'http://api.weatherapi.com/v1';
+  final String apikey = '6f5a9ebcbe4b48b598b141740252506';
+
+  WeatherServer(this.dio);
+  Future <WeatherModel> geCurrentWeather({required String cityName}) async{
+    Response response= await dio.get('$baseurl/forecast.json?key=$apikey&q=$cityName&days=1');
+    WeatherModel weatherModel = WeatherModel.fromJson(response.data);
+    return weatherModel;
+
+  }
+
+
+
+}
